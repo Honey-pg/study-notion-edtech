@@ -9,7 +9,12 @@ import elipseImage2 from "../assets/Images/Ellipse 2.png";
 import elipseImage3 from "../assets/Images/Ellipse 3.png";
 import "./Home.css";
 import CodeBlocks from "../Components/core/HomePage/CodeBlocks";
-
+import TimelineSection from '../Components/core/HomePage/TimelineSection'
+import LearningLanguageSection from '../Components/core/HomePage/LearningLanguageSection'
+import InstructorSection from '../Components/core/HomePage/InstructorSection'
+import Footer from '../Components/common/Footer'
+// import ExploreMore from '../components/core/HomePage/ExploreMore'
+import ReviewSlider from '../Components/core/HomePage/ReviewSlider';
 
 const Home=()=>{
   return (
@@ -54,14 +59,14 @@ const Home=()=>{
                         alt='elipse ' />
                         
                     </div>
-                    <video muted loop autoPlay className="h-[600px]">
+                    <video muted loop autoPlay className="h-[550px]">
                         <source  src={Banner} type="video/mp4" />
                     </video> 
                     
                 </div>
             </div>
 
-          <div>
+          <div className="w-[1100px] h-[420px]">
             <CodeBlocks   position={"lg:flex-row"}
                     // imgPos = {"-top-[40%] right-[8%]"}
                     heading={
@@ -94,16 +99,17 @@ const Home=()=>{
                     backgroudGradient={<div className="codeblock1 absolute"></div>}/>
           </div>
                       {/* CODE-SECTION-2 */}
-                      <div className="mr-8"> 
+                      <div className="mr-7 w-[1200px]"> 
                 <CodeBlocks 
                     position={"lg:flex-row-reverse"}
                     // imgPos = {"-top-[40%] right-[66%]"}
                     heading={
-                        <div className='text-4xl font-semibold'>
+                        <div className='text-3xl font-semibold'>
                             Start 
-                            <HighlightText text={`coding`}/>
-                            <br />
-                            <HighlightText text={` in seconds`}/>
+                            <HighlightText text={`coding in`}/>
+                             <br/> 
+                            seconds
+                            {/* <HighlightText text={` seconds`}/> */}
                         </div>
                     }
                     subheading = {
@@ -130,7 +136,65 @@ const Home=()=>{
                     backgroudGradient={<div className="codeblock2 absolute"></div>}
                 />
             </div>
-      </div>
+                 {/* Section 2 */}
+        <div className="bg-pure-greys-5 text-richblack-700 w-full">
+            <div className="homepage_bg h-[320px]">
+            {/* Explore Full Catagory Section */}
+            <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
+                <div className="lg:h-[150px]"></div>
+                <div className="flex flex-row gap-7 text-white lg:mt-8">
+                <CTAButton active={true} linkto={"/signup"}>
+                    <div className="flex items-center gap-2">
+                    Explore Full Catalog
+                    <FaArrowRight />
+                    </div>
+                </CTAButton>
+                <CTAButton active={false} linkto={"/login"}>
+                    Learn More
+                </CTAButton>
+                </div>
+            </div>
+            </div>
+
+        <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 ">
+            {/* Job that is in Demand - Section 1 */}
+            <div className="mb-10 mt-[-100px] flex flex-col  lg:mt-20 lg:flex-row lg:gap-14">
+                <div className="text-3xl font-semibold ml-6 lg:w-[45%] ">
+                 Get the skills you need for a 
+                 <br/>
+                <HighlightText text={"Job that is in demand."} />
+                </div>
+                <div className="flex flex-col items-start gap-10 lg:w-[45%]">
+                <div className="text-[16px]">
+                    The modern StudyNotion is the dictates its own terms. Today, to
+                    be a competitive specialist requires more than professional
+                    skills.
+                </div>
+                <CTAButton active={true} linkto={"/signup"}>
+                    <div className="">Learn More</div>
+                </CTAButton>
+                </div>
+            </div>
+
+            {/* Timeline Section - Section 2 */}
+            <TimelineSection />
+
+            {/* Learning Language Section - Section 3 */}
+            <LearningLanguageSection />
+            </div>
+        </div>
+        <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+            {/* Become a instructor section */}
+            <InstructorSection />
+
+            {/* Reviws from Other Learner */}
+            <h1 className="text-center text-4xl font-semibold mt-8">
+            Reviews from other learners
+            </h1>
+            <ReviewSlider />
+        </div>
+       </div>
+        <Footer />
     </div>
   );
 }

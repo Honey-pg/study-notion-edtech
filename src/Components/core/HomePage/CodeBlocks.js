@@ -8,7 +8,7 @@ const CodeBlocks = ({
     position, heading, subheading, ctabtn1, ctabtn2, codeblock, imgPos, backgroudGradient, codeColor
 }) => {
   return (
-    <div className={`flex flex-row ${position} my-20 max-w-[1200px] mx-auto px-5 relative justify-between gap-14 lg:pl-16 lg:pr-4 lg:gap-10`}>
+    <div className={`flex flex-row ${position} my-14 max-w-[1200px] mx-auto px-5 relative justify-between gap-14 lg:pl-16 lg:pr-4 lg:gap-10`}>
              <div className='w-[100%] lg:w-[50%] flex flex-col gap-8'>
             {heading}
             <div className='text-richblack-300 font-bold '>
