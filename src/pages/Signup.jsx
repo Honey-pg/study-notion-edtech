@@ -1,4 +1,4 @@
-import Template from "../Components/Template";
+import Template from "../Components/core/Auth/Template";
 import signupImg from "../assets/Images/signup.webp"
 
 function Signup({ setIsLoggedIn }) {

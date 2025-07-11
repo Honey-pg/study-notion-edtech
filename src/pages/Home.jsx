@@ -13,7 +13,7 @@ import TimelineSection from '../Components/core/HomePage/TimelineSection'
 import LearningLanguageSection from '../Components/core/HomePage/LearningLanguageSection'
 import InstructorSection from '../Components/core/HomePage/InstructorSection'
 import Footer from '../Components/common/Footer'
-// import ExploreMore from '../components/core/HomePage/ExploreMore'
+import ExploreMore from '../Components/core/HomePage/ExploreMore'
 import ReviewSlider from '../Components/core/HomePage/ReviewSlider';
 
 const Home=()=>{
@@ -99,7 +99,7 @@ const Home=()=>{
                     backgroudGradient={<div className="codeblock1 absolute"></div>}/>
           </div>
                       {/* CODE-SECTION-2 */}
-                      <div className="mr-7 w-[1200px]"> 
+                 <div className="mr-7  w-[1200px]"> 
                 <CodeBlocks 
                     position={"lg:flex-row-reverse"}
                     // imgPos = {"-top-[40%] right-[66%]"}
@@ -130,14 +130,15 @@ const Home=()=>{
                         }
                     }
 
-                    codeblock={[`<!DOCTYPE html>`,`<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\nbody>`,`h1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a><ahref="three/">Three</a>\n/nav>`]}
+                    codeblock={[`<!DOCTYPE html>`,`<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\nbody>`,`h1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a><ahref="three/">`]}
                     codeColor={"text-yellow-25"}
                     // backgroudGradient={elipseImage2}
                     backgroudGradient={<div className="codeblock2 absolute"></div>}
                 />
+                <ExploreMore/>
             </div>
                  {/* Section 2 */}
-        <div className="bg-pure-greys-5 text-richblack-700 w-full">
+        <div className="bg-pure-greys-5 mt-4 text-richblack-700 w-full">
             <div className="homepage_bg h-[320px]">
             {/* Explore Full Catagory Section */}
             <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">

@@ -2,7 +2,7 @@ import React from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { FcGoogle } from "react-icons/fc";
-import frame from "../assets/Images/frame.png"
+import frame from "../../../assets/Images/frame.png"
 
 const Template = (props) => {
   const setIsLoggedIn = props.setIsLoggedIn;
