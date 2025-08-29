@@ -1,4 +1,7 @@
 const Category = require("../models/category");
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max)
+}
 
 exports.createCategory = async (req, res) => {
   try {
@@ -64,6 +67,7 @@ exports.categoryPageDetails = async (req, res) => {
         .json({ success: false, message: "Category not found" })
     }
 
+
     const categoriesExceptSelected = await Category.find({
       _id: { $ne: categoryId },
     })
@@ -76,7 +80,7 @@ exports.categoryPageDetails = async (req, res) => {
         match: { status: "Published" },
       })
       .exec()
-    // Get top-selling courses across all categories
+    
     const allCategories = await Category.find()
       .populate({
         path: "courses",

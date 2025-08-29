@@ -26,14 +26,14 @@ const CourseSchema = new mongoose.Schema({
   price:{
     type:Number,
   },
-  studendsEnrolled:[{
+  studentsEnrolled:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
   }],
   thumbnail:{
    type:String,
   },
-  ratingAndreview:{
+  ratingAndReviews:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"RatingAndReview",
   },
@@ -48,7 +48,12 @@ const CourseSchema = new mongoose.Schema({
   status:{
     type:String,
     enum:["Draft","Published"],
-  }
+  },
+  createdAt:{
+    type:Date,
+    default:Date.now(),
+  },
+  
 })
 
 module.exports= mongoose.model("Course",CourseSchema);

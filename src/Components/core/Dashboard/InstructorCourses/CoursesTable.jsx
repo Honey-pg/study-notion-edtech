@@ -28,7 +28,9 @@ export default function CoursesTable({ courses, setCourses }) {
 
   const handleCourseDelete = async (courseId) => {
     setLoading(true)
+
     await deleteCourse({ courseId: courseId }, token)
+   
     const result = await fetchInstructorCourses(token)
     if (result) {
       setCourses(result)
@@ -37,7 +39,7 @@ export default function CoursesTable({ courses, setCourses }) {
     setLoading(false)
   }
 
-  // console.log("All Course ", courses)
+  console.log("All Course ", courses)
 
   return (
     <>

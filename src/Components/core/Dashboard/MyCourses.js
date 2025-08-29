@@ -7,11 +7,11 @@ import { fetchInstructorCourses } from "../../../services/operations/courseDetai
 import IconBtn from "../../common/IconBtn"
 import CoursesTable from "./InstructorCourses/CoursesTable"
 
-export default function MyCourses() {
-  const { token } = useSelector((state) => state.auth)
+const MyCourses=() =>{
+  const {token} = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const [courses, setCourses] = useState([])
-
+ 
   useEffect(() => {
     const fetchCourses = async () => {
       const result = await fetchInstructorCourses(token)
@@ -19,7 +19,7 @@ export default function MyCourses() {
         setCourses(result)
       }
     }
-    fetchCourses()
+    fetchCourses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -38,3 +38,5 @@ export default function MyCourses() {
     </div>
   )
 }
+
+export default MyCourses

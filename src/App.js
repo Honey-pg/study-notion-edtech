@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import Navbar from "./Components/common/Navbar";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -23,8 +24,10 @@ import Settings from "./Components/core/Dashboard/Settings";
 import EnrolledCourses from "./Components/core/Dashboard/EnrolledCourses";
 import AddCourse from "./Components/core/Dashboard/AddCourse";
 import MyCourses from "./Components/core/Dashboard/MyCourses";
-// import EditCourse from "./Components/core/Dashboard/EditCourse";
-// import Instructor from "./Components/core/Dashboard/InstructorDashboard/Instructor";
+import EditCourse from "./Components/core/Dashboard/EditCourse";
+import Instructor from "./Components/core/Dashboard/InstructorDashboard/Instructor";
+import Catalog from "./pages/Catalog";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
 
@@ -38,7 +41,9 @@ function App() {
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        <Route index element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="catalog/:catalogName" element={<Catalog />} />
+        <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route
           path="forgot-password"
           element={
@@ -83,13 +88,13 @@ function App() {
 
           {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
-             {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
-              <Route path="dashboard/add-course" element={<AddCourse />} /> 
+              <Route path="dashboard/instructor" element={<Instructor />} />
+               <Route path="dashboard/add-course" element={<AddCourse />}/>
               <Route path="dashboard/my-courses" element={<MyCourses />} />
-              {/* <Route
+              <Route
                 path="dashboard/edit-course/:courseId"
                 element={<EditCourse />}
-              /> */}
+              />
             </>
           )}
         </Route>

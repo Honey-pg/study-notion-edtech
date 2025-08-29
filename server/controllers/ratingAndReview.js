@@ -1,6 +1,7 @@
-const ratingandreview=require("../models/RatingAndReview");
+const RatingAndReview=require("../models/RatingAndReview");
 const user=require("../models/User")
-const course=require("../models/Course")
+const Course=require("../models/Course")
+const mongoose = require("mongoose");
 
 exports.createRating=async(req,res)=>{
    try {

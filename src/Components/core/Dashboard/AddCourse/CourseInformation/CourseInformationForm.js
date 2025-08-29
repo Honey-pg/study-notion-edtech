@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { HiOutlineCurrencyRupee } from "react-icons/hi"
+import { HiOutlineCurrencyRupee } from "react-icons/hi" 
 import { MdNavigateNext } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -14,7 +14,7 @@ import { setCourse, setStep } from "../../../../../slices/courseSlice"
 import { COURSE_STATUS } from "../../../../../utils/constants"
 import IconBtn from "../../../../common/IconBtn"
 import Upload from "../Upload"
-import ChipInput from "./ChipInput"
+// import ChipInput from "./ChipInput"
 import RequirementsField from "./RequirementField"
 
 export default function CourseInformationForm() {
@@ -36,7 +36,8 @@ export default function CourseInformationForm() {
     const getCategories = async () => {
       setLoading(true)
       const categories = await fetchCourseCategories()
-      if (categories.length > 0) {
+      console.log('category',categories)
+      if (categories?.length > 0) {
         // console.log("categories", categories)
         setCourseCategories(categories)
       }
@@ -153,9 +154,11 @@ export default function CourseInformationForm() {
       dispatch(setCourse(result))
     }
     setLoading(false)
+    console.log('hi', formData);
+    console.log('hi2', dispatch(setStep(2))) 
   }
-
-  return (
+   
+return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6"
@@ -221,10 +224,13 @@ export default function CourseInformationForm() {
         )}
       </div>
       {/* Course Category */}
+      
       <div className="flex flex-col space-y-2">
+
         <label className="text-sm text-richblack-5" htmlFor="courseCategory">
           Course Category <sup className="text-pink-200">*</sup>
         </label>
+       
         <select
           {...register("courseCategory", { required: true })}
           defaultValue=""
@@ -247,6 +253,7 @@ export default function CourseInformationForm() {
           </span>
         )}
       </div>
+      
       {/* Course Tags */}
       {/* <ChipInput
         label="Tags"
@@ -304,6 +311,7 @@ export default function CourseInformationForm() {
           </button>
         )}
         <IconBtn
+         type="submit"
           disabled={loading}
           text={!editCourse ? "Next" : "Save Changes"}
         >
