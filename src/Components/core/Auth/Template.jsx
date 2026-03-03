@@ -3,9 +3,23 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { FcGoogle } from "react-icons/fc";
 import frame from "../../../assets/Images/frame.png"
+import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { googleLogin } from "../../../services/operations/authApi"
 
 const Template = (props) => {
   const setIsLoggedIn = props.setIsLoggedIn;
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      dispatch(googleLogin(tokenResponse.access_token, navigate))
+    },
+    onError: (error) => console.log('Google Login Failed:', error)
+  });
+
   return (
     <div className="flex w-11/12 max-w-[1160px] py-12 mx-auto gap-y-0 gap-x-12 justify-between text-richblack-100">
       <div className="w-11/12 max-w-[450px] flex flex-col">
@@ -27,7 +41,11 @@ const Template = (props) => {
           <div className="h-[1px] bg-richblack-700 w-full"></div>
         </div>
 
-        <button className="flex rounded-md items-center justify-center border border-richblack-700 font-medium text-richblack-100 px-[12px] py-[8px] gap-x-2 mt-6">
+        <button 
+          onClick={() => handleGoogleLogin()}
+          type="button"
+          className="flex w-full mt-6 items-center justify-center rounded-[8px] border border-richblack-700 bg-transparent px-[12px] py-[8px] gap-x-2 text-richblack-100"
+        >
           <FcGoogle />
           <p>Sign in with Google</p>
         </button>

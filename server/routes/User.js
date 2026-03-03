@@ -7,6 +7,7 @@ const {
   signUp,
   sendOtp,
   changePassword,
+  googleLogin,
 } = require("../controllers/Auth")
 const {
   resetPasswordToken,
@@ -18,6 +19,8 @@ const { auth } = require("../middlewares/auth")
 
 
 router.post("/login", login)
+
+router.post("/google-login", googleLogin)
 
 router.post("/signup", signUp)
 

@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Chart, registerables } from "chart.js"
 import { Pie } from "react-chartjs-2"
-// import { Pie } from "chart.js"
 
 Chart.register(...registerables)
 
@@ -9,7 +8,6 @@ export default function InstructorChart({ courses }) {
   // State to keep track of the currently selected chart
   const [currChart, setCurrChart] = useState("students")
 
-  // Function to generate random colors for the chart
   const generateRandomColors = (numColors) => {
     const colors = []
     for (let i = 0; i < numColors; i++) {
@@ -75,7 +73,7 @@ export default function InstructorChart({ courses }) {
           Income
         </button>
       </div>
-      <div className="relative mx-auto aspect-square h-full w-full">
+      <div className="relative mx-auto aspect-square h-[300px] w-full">
         {/* Render the Pie chart based on the selected chart */}
         <Pie
           data={currChart === "students" ? chartDataStudents : chartIncomeData}

@@ -14,7 +14,7 @@ import LearningLanguageSection from '../Components/core/HomePage/LearningLanguag
 import InstructorSection from '../Components/core/HomePage/InstructorSection'
 import Footer from '../Components/common/Footer'
 import ExploreMore from '../Components/core/HomePage/ExploreMore'
-import ReviewSlider from '../Components/core/HomePage/ReviewSlider';
+import ReviewSlider from '../Components/common/ReviewSlider';
 
 const Home=()=>{
   return (
@@ -189,10 +189,11 @@ const Home=()=>{
             <InstructorSection />
 
             {/* Reviws from Other Learner */}
-            <h1 className="text-center text-4xl font-semibold mt-8">
+            <h1 className="text-center text-4xl  font-semibold mt-8">
             Reviews from other learners
             </h1>
             <ReviewSlider />
+            
         </div>
        </div>
         <Footer />

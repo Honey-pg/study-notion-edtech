@@ -18,7 +18,11 @@ const userSchema= new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,
+    },
+    authProvider:{
+        type:String,
+        enum:["LOCAL", "GOOGLE"],
+        default:"LOCAL",
     },
     accountType:{
         type:String,

@@ -39,7 +39,7 @@ function CourseDetails() {
     ;(async () => {
       try {
         const res = await fetchCourseDetails(courseId)
-        // console.log("course details res: ", res)
+        console.log("course details res: ", res)
         setResponse(res)
       } catch (error) {
         console.log("Could not fetch Course Details")
@@ -52,10 +52,11 @@ function CourseDetails() {
   // Calculating Avg Review count
   const [avgReviewCount, setAvgReviewCount] = useState(0)
   useEffect(() => {
-    const count = GetAvgRating(response?.data?.data?.[0]?.ratingAndReviews || []);
+    const count = GetAvgRating(response?.data?.[0]?.ratingAndReviews || []);
     setAvgReviewCount(count)
+    
   }, [response])
-  // console.log("avgReviewCount: ", avgReviewCount)
+  console.log("avgReviewCount: ", avgReviewCount)
 
   // // Collapse all
   // const [collapse, setCollapse] = useState("")
@@ -93,7 +94,10 @@ function CourseDetails() {
   }
 
   const course = response.data?.[0];
-
+  // console.log("Course:", course.courseName)
+  // console.log("ratingAndReviews:", course.ratingAndReviews)
+  // console.log("Calculated avg:", GetAvgRating(course.ratingAndReviews))
+  
   if (!course) {
     return <Error />;
   }

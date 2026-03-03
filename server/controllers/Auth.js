@@ -4,8 +4,11 @@ const otpGenerator = require("otp-generator");
 const bcrypt= require("bcrypt")
 const jwt=require("jsonwebtoken")
 const Profile=require("../models/Profile")
+const { OAuth2Client } = require('google-auth-library');
 
 require('dotenv').config();
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 exports.sendOtp = async (req, res) => {
   try {
@@ -239,3 +242,100 @@ exports.changePassword = async(req,res)=>{
       })
     }
 }
+
+exports.googleLogin = async (req, res) => {
+    try {
+        const { credential } = req.body;
+        if (!credential) {
+            return res.status(403).json({
+                success: false,
+                message: "Google credential is required",
+            });
+        }
+
+        const userInfoResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: { Authorization: `Bearer ${credential}` }
+        });
+        
+        if (!userInfoResponse.ok) {
+            return res.status(400).json({ success: false, message: "Invalid Google token" });
+        }
+
+        const payload = await userInfoResponse.json();
+        const { email, given_name, family_name, picture } = payload;
+
+        let user = await User.findOne({ email }).populate("additionalDetails").exec();
+
+        if (user) {
+            const tokenPayload = {
+                email: user.email,
+                accountType: user.accountType,
+                id: user._id,
+            };
+            const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+                expiresIn: "3d",
+            });
+            user.token = token;
+
+            const options = {
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
+                httpOnly: true,
+            };
+            return res.cookie("token", token, options).json({
+                success: true,
+                token,
+                user,
+                message: "Google login successful",
+            });
+        }
+
+        const profileDetails = await Profile.create({
+            gender: null,
+            contactnumber: null,
+            dateofbirth: null,
+            about: null,
+        });
+
+        // Create new user, without password, authProvider="GOOGLE"
+        user = await User.create({
+            firstName: given_name,
+            lastName: family_name || "",
+            email,
+            authProvider: "GOOGLE",
+            accountType: "Student", 
+            additionalDetails: profileDetails._id,
+            image: picture || `https://api.dicebear.com/5.x/initials/svg?seed=${given_name} ${family_name || ""}`,
+        });
+        await user.save();
+
+        user = await User.findById(user._id).populate("additionalDetails").exec();
+
+        const tokenPayload = {
+            email: user.email,
+            accountType: user.accountType,
+            id: user._id,
+        };
+        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+            expiresIn: "3d",
+        });
+        user.token = token;
+
+        const options = {
+            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+        };
+        return res.cookie("token", token, options).json({
+            success: true,
+            token,
+            user,
+            message: "User created and logged in via Google successfully",
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Google login failure",
+        });
+    }
+};

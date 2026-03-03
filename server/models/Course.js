@@ -33,10 +33,10 @@ const CourseSchema = new mongoose.Schema({
   thumbnail:{
    type:String,
   },
-  ratingAndReviews:{
+  ratingAndReviews:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:"RatingAndReview",
-  },
+  }],
   tag:{
     type:[String],
     

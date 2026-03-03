@@ -28,6 +28,8 @@ import EditCourse from "./Components/core/Dashboard/EditCourse";
 import Instructor from "./Components/core/Dashboard/InstructorDashboard/Instructor";
 import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./Components/core/ViewCourse/VideoDetails";
 
 function App() {
 
@@ -94,6 +96,22 @@ function App() {
               <Route
                 path="dashboard/edit-course/:courseId"
                 element={<EditCourse />}
+              />
+            </>
+          )}
+        </Route>
+        <Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
               />
             </>
           )}

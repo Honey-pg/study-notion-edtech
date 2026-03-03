@@ -164,7 +164,10 @@ exports.editCourse = async (req, res) => {
 exports.showAllCourses = async(req,res)=>{
    try {
     // 
-     const allCourses = await Course.find({})
+     const allCourses = await Course.find({},{
+      ratingAndReviews:true,
+     })
+     .populate("ratingAndReviews") 
     return res.status(200).json({
         success:true,
         message:"data for all course fetched success",
@@ -197,6 +200,9 @@ exports.getCourseDetails = async (req, res) => {
       })
       .populate({path:"instructor", populate:{path:"additionalDetails"}}) 
       .populate('category') 
+      .populate({
+        path: "ratingAndReviews",
+      })
       await Course.find().populate({
         path: 'ratingAndReviews',
         strictPopulate: false // Bypass the strict check
@@ -208,7 +214,6 @@ exports.getCourseDetails = async (req, res) => {
         message: "Course not found",
       });
     }
-
     return res.status(200).json({
       success: true,
       message:"course fetched success",
@@ -314,7 +319,8 @@ exports.getAllCoursesData = async (req, res) => {
       model: 'Section',
     })
     .populate('studentsEnrolled') 
-    .populate('category') 
+    .populate('category')
+    .populate("ratingAndReviews") 
     .exec()
 
     return res.status(200).json({
