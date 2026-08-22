@@ -253,19 +253,16 @@ exports.googleLogin = async (req, res) => {
             });
         }
 
-     const ticket = await client.verifyIdToken({
-  idToken: credential,
-  audience: process.env.GOOGLE_CLIENT_ID,
-});
+        const userInfoResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: { Authorization: `Bearer ${credential}` }
+        });
+        
+        if (!userInfoResponse.ok) {
+            return res.status(400).json({ success: false, message: "Invalid Google token" });
+        }
 
-const payload = ticket.getPayload();
-
-const {
-  email,
-  given_name,
-  family_name,
-  picture
-} = payload;
+        const payload = await userInfoResponse.json();
+        const { email, given_name, family_name, picture } = payload;
 
         let user = await User.findOne({ email }).populate("additionalDetails").exec();
 
